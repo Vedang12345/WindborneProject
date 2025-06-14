@@ -26,7 +26,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error fetching balloon data:", error);
       res.status(500).json({ 
         error: "Failed to fetch balloon data",
-        message: error.message 
+        message: error instanceof Error ? error.message : "Unknown error"
       });
     }
   });

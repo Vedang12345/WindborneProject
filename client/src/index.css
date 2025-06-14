@@ -66,6 +66,16 @@
 .leaflet-container {
   height: 100%;
   width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.leaflet-control-container {
+  pointer-events: auto;
+}
+
+.leaflet-interactive {
+  cursor: pointer;
 }
 
 .leaflet-popup-content-wrapper {

@@ -46,6 +46,12 @@ export default function MapContainer({
       zoom: 2,
       zoomControl: false,
       attributionControl: true,
+      dragging: true,
+      touchZoom: true,
+      doubleClickZoom: true,
+      scrollWheelZoom: true,
+      boxZoom: true,
+      keyboard: true,
     });
 
     // Add tile layer
@@ -56,6 +62,19 @@ export default function MapContainer({
 
     // Add markers layer
     markersRef.current.addTo(map);
+
+    // Add event listeners to verify map interaction
+    map.on('click', (e) => {
+      console.log('Map clicked at:', e.latlng);
+    });
+
+    map.on('zoom', () => {
+      console.log('Map zoom changed to:', map.getZoom());
+    });
+
+    map.on('drag', () => {
+      console.log('Map dragged');
+    });
 
     mapRef.current = map;
 
@@ -170,10 +189,10 @@ export default function MapContainer({
   return (
     <main className="flex-1 relative">
       {/* Map Container */}
-      <div ref={mapContainerRef} className="w-full h-full">
+      <div ref={mapContainerRef} className="w-full h-full" style={{ zIndex: 1 }}>
         {/* Map Loading State */}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
+        {isLoading && balloons.length === 0 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white z-[1000] pointer-events-none">
             <div className="text-center">
               <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
               <p className="text-gray-600">Loading balloon data...</p>
