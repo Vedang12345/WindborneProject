@@ -63,18 +63,7 @@ export default function MapContainer({
     // Add markers layer
     markersRef.current.addTo(map);
 
-    // Add event listeners to verify map interaction
-    map.on('click', (e) => {
-      console.log('Map clicked at:', e.latlng);
-    });
-
-    map.on('zoom', () => {
-      console.log('Map zoom changed to:', map.getZoom());
-    });
-
-    map.on('drag', () => {
-      console.log('Map dragged');
-    });
+    // Map is now fully interactive and ready
 
     mapRef.current = map;
 
