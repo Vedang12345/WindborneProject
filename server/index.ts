@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import path from "path";
 
 const app = express();
 app.use(express.json());
@@ -54,6 +55,10 @@ app.use((req, res, next) => {
     await setupVite(app, server);
   } else {
     serveStatic(app);
+    // SPA fallback: serve index.html for all non-API, non-static routes
+    app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, "../dist/public/index.html"));
+    });
   }
 
   // Use environment variables for host and port, defaulting to 0.0.0.0 for production (Render) and 3000 for local
