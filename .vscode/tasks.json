@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Move project files up one level",
+			"command": "powershell -Command \"Move-Item -Path .\\WindBalloonTracker\\* -Destination . -Force; Remove-Item -Path .\\WindBalloonTracker -Recurse -Force\"",
+			"group": "build",
+			"isBackground": false
+		}
+	]
+}
